@@ -5,12 +5,12 @@ on:
     branches:
       - production
     paths:
+      - 'db/**'
       - 'docker/**'
       - 'middleware/**'
-      - 'db/**'
       - 'models/**'
       - 'routes/**'
-      # - 'utils/**'
+      - 'monitoring/**'
       # - 'tests/**'
       - 'app.py'
       - 'pyproject.toml'
