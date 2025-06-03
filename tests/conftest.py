@@ -12,7 +12,8 @@ def client():
 @pytest.fixture
 def mock_redis():
     with patch("db.redis_config.redis_client") as mock_redis:
-        yield mock_redis
+        with patch("db.redis_operations.redis_client", mock_redis):
+            yield mock_redis
 
 
 @pytest.fixture
