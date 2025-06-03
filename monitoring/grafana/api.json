@@ -1,26 +1,16 @@
 {
   "id": null,
   "uid": "api-dashboard",
-  "title": "API Dashboard",
-  "tags": ["api", "monitoring", "payzee"],
-  "style": "dark",
-  "timezone": "",
+  "title": "API",
+  "tags": ["fastapi", "api"],
+  "timezone": "Asia/Kolkata",
   "version": 1,
-  "schemaVersion": 38,
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "liveNow": false,
-  "weekStart": "",
+  "schemaVersion": 40,
+  "refresh": "10s",
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h", "2h", "1d"],
-    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
-  },
-  "refresh": "30s",
   "templating": {
     "list": [
       {
@@ -70,7 +60,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -79,7 +69,7 @@
           "legendFormat": "{{path}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -166,7 +156,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -175,7 +165,7 @@
           "legendFormat": "{{path}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -266,7 +256,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -275,7 +265,7 @@
           "legendFormat": "Error Rate",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -396,7 +386,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -405,7 +395,7 @@
           "legendFormat": "Avg Query Time",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -416,7 +406,7 @@
           "legendFormat": "95th Percentile",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -507,7 +497,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -516,7 +506,7 @@
           "legendFormat": "Total Requests",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -574,7 +564,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -583,7 +573,7 @@
           "legendFormat": "In Progress",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -641,7 +631,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -650,7 +640,7 @@
           "legendFormat": "RPS",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -708,7 +698,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -717,7 +707,7 @@
           "legendFormat": "Avg Response Time",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -775,7 +765,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -784,7 +774,7 @@
           "legendFormat": "{{status_code}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -837,7 +827,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -846,7 +836,7 @@
           "legendFormat": "{{method}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -899,7 +889,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -908,7 +898,7 @@
           "legendFormat": "{{client_ip}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true
@@ -995,7 +985,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "bemxu4neziwhsf"
+        "uid": "prometheus"
       },
       "targets": [
         {
@@ -1004,7 +994,7 @@
           "legendFormat": "{{client_ip}}",
           "datasource": {
             "type": "prometheus",
-            "uid": "bemxu4neziwhsf"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "range": true,

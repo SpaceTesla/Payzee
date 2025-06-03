@@ -5,89 +5,83 @@ services:
       dockerfile: docker/prod.Dockerfile
     ports:
       - "8000:8000"
-    restart: unless-stopped
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    volumes:
+      - api_data:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-    volumes:
-      - api_data:/app/data
-    networks:
-      - payzee_network
     depends_on:
       redis:
         condition: service_healthy
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_DB=0
+    restart: unless-stopped
 
   redis:
     image: redis:latest
+    command: redis-server --save 60 1 --loglevel warning
     ports:
       - "6379:6379"
-    restart: unless-stopped
     volumes:
       - redis_data:/data
-    networks:
-      - payzee_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 3
-    command: redis-server --save 60 1 --loglevel warning
+    restart: unless-stopped
 
   redisinsight:
     image: redis/redisinsight:latest
     ports:
       - "5540:5540"
-    restart: unless-stopped
     volumes:
       - redisinsight_data:/db
-    networks:
-      - payzee_network
     depends_on:
       - redis
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:latest
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--log.level=warn"
     ports:
       - "9090:9090"
-    restart: unless-stopped
     volumes:
       - ./monitoring/prometheus/config.yaml:/etc/prometheus/prometheus.yml
       - ./monitoring/prometheus/alerts.yaml:/etc/prometheus/alerts.yml
       - prometheus_data:/prometheus
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-    networks:
-      - payzee_network
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
-    restart: unless-stopped
-    volumes:
-      - grafana_data:/var/lib/grafana
     environment:
+      - GF_USERS_ALLOW_SIGN_UP=false
       - GF_LOG_LEVEL=warn
-    networks:
-      - payzee_network
+    volumes:
+      - ./monitoring/grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./monitoring/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./monitoring/grafana/api.json:/etc/grafana/provisioning/dashboards/api.json
+      - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
+    restart: unless-stopped
 
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001"
-    restart: unless-stopped
     volumes:
       - uptime_kuma_data:/app/data
-    networks:
-      - payzee_network
+    restart: unless-stopped
 
 volumes:
   api_data:
@@ -98,5 +92,6 @@ volumes:
   uptime_kuma_data:
 
 networks:
-  payzee_network:
+  default:
+    name: payzee
     driver: bridge
