@@ -1,4 +1,4 @@
-FROM python:3.11-slim AS builder
+FROM python:3.11-alpine AS builder
 
 # ARG APP_HOME=/payzee-api
 # ARG BUILD_ENVIRONMENT="production"
@@ -9,13 +9,14 @@ ENV POETRY_VERSION=2.1.3 \
 
 WORKDIR /app
 
+# RUN apk add --no-cache gcc musl-dev libffi-dev
 RUN pip install "poetry==$POETRY_VERSION" poetry-plugin-export>=1.9.0
 
 COPY pyproject.toml poetry.lock* ./
 RUN poetry export -f requirements.txt > requirements.txt && \
     pip install --no-cache-dir -r requirements.txt --target=/dependencies
 
-FROM python:3.11-slim AS runner
+FROM python:3.11-alpine AS runner
 
 WORKDIR /app
 
