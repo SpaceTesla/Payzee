@@ -47,7 +47,7 @@ groups:
           description: "95th percentile database query latency exceeds 500 ms over the last 5 minutes."
 
       - alert: HighCPUUsage
-        expr: rate(process_cpu_seconds_total{job="payzee"}[5m]) > 0.8
+        expr: rate(process_cpu_seconds_total{job="fastapi"}[5m]) > 0.8
         for: 5m
         labels:
           severity: warning
@@ -56,7 +56,7 @@ groups:
           description: "CPU usage above 80% for the last 5 minutes."
 
       - alert: HighMemoryUsage
-        expr: process_resident_memory_bytes{job="payzee"} > 524288000
+        expr: process_resident_memory_bytes{job="fastapi"} > 524288000
         for: 5m
         labels:
           severity: warning

@@ -57,6 +57,21 @@ services:
       - ./monitoring/prometheus/config.yaml:/etc/prometheus/prometheus.yml
       - ./monitoring/prometheus/alerts.yaml:/etc/prometheus/alerts.yml
       - prometheus_data:/prometheus
+    depends_on:
+      - alertmanager
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    command:
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
+      - "--log.level=warn"
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./monitoring/alertmanager/config.yaml:/etc/alertmanager/config.yml
+      - alertmanager_data:/alertmanager
     restart: unless-stopped
 
   grafana:
@@ -64,6 +79,9 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_LOGS=/var/log/grafana
+      - GF_PATHS_PLUGINS=/var/lib/grafana/plugins
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_LOG_LEVEL=warn
     volumes:
@@ -88,6 +106,7 @@ volumes:
   redis_data:
   redisinsight_data:
   prometheus_data:
+  alertmanager_data:
   grafana_data:
   uptime_kuma_data:
 

@@ -1,0 +1,26 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'your-email@gmail.com'
+  smtp_auth_username: 'your-email@gmail.com'
+  smtp_auth_password: 'your-app-password'
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email-notifications'
+
+receivers:
+- name: 'email-notifications'
+  email_configs:
+  - to: 'admin@yourcompany.com'
+    subject: '[Alert] {{ .GroupLabels.alertname }}'
+    body: |
+      Alert: {{ .GroupLabels.alertname }}
+      Status: {{ .Status }}
+
+      {{ range .Alerts }}
+      Instance: {{ .Labels.instance }}
+      Summary: {{ .Annotations.summary }}
+      {{ end }}
