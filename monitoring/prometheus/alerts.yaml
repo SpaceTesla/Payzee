@@ -1,6 +1,7 @@
 groups:
   - name: payzee_alerts
     rules:
+      # Availability Alerts
       - alert: EndpointDown
         expr: absent(up{job="fastapi"} == 1)
         for: 1m
@@ -19,6 +20,7 @@ groups:
           summary: "Redis service down"
           description: "Redis unreachable for more than 1 minute."
 
+      # Performance Alerts
       - alert: HighRequestLatency
         expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint)) > 1
         for: 5m
@@ -46,6 +48,7 @@ groups:
           summary: "Slow database queries detected"
           description: "95th percentile database query latency exceeds 500 ms over the last 5 minutes."
 
+      # Resource Usage Alerts
       - alert: HighCPUUsage
         expr: rate(process_cpu_seconds_total{job="fastapi"}[5m]) > 0.8
         for: 5m

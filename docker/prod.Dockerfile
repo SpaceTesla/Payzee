@@ -1,5 +1,8 @@
 FROM python:3.11-alpine AS builder
 
+LABEL maintainer="areeb@1mindlabs.org"
+LABEL version="1.0.0"
+
 # ARG APP_HOME=/payzee-api
 # ARG BUILD_ENVIRONMENT="production"
 
